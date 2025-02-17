@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Movie</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    video {
+      width: 80%;
+      max-height: 80%;
+      background: black;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="video-container">
+    <video id="moviePlayer" controls autoplay controlslist="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+      <source id="movieSource" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+  
+  <script>
+    function preventScreenRecording() {
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          const videoPlayer = document.getElementById('moviePlayer');
+          videoPlayer.pause();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'p')) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    function preventRightClick() {
+      document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+
+      // Gebruik een detectie-methode voor extensies of bypasses
+      document.addEventListener('mousedown', (e) => {
+        if (e.button === 2 || e.which === 3) {
+          e.preventDefault();
+        }
+      });
+
+      window.addEventListener('mousedown', (e) => {
+        if (e.button === 2 || e.which === 3) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    async function initializePlayer() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieId = <%= id %>;
+      
+      if (!movieId) {
+        alert("No movie ID provided.");
+        return;
+      }
+
+      const videoSource = document.getElementById('movieSource');
+      videoSource.src = "https://movies.bingebit.online/${movieId}.mp4";
+
+      const videoPlayer = document.getElementById('moviePlayer');
+      videoPlayer.load();
+    }
+
+    preventScreenRecording();
+    preventRightClick();
+    initializePlayer();
+  </script>
+</body>
+</html>

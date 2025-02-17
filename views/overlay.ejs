@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title><%= movie.title %></title>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    img {
+      width: 500px;
+      height: 300px;
+      object-fit: cover; /* Zorgt ervoor dat de afbeelding wordt gekropt en niet uitgerekt */
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .overlay-content {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 900px;
+      box-shadow: 0 0 20px rgba(0, 193, 255, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cover-image {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 122, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .movie-details {
+      color: #f0f0f0;
+    }
+
+    .movie-details h1 {
+      color: #00c1ff;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .movie-details p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+      color: #ccc;
+    }
+
+    .movie-details a {
+      display: inline-block;
+      padding: 15px 30px;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      background: #ff007a;
+      box-shadow: 0 0 20px #ff007a;
+      transition: all 0.3s ease;
+    }
+
+    .movie-details a:hover {
+      background: #00c1ff;
+      box-shadow: 0 0 20px #00c1ff;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="overlay-content">
+      <img src="<%= movie.cover %>" alt="<%= movie.title %>" class="cover-image">
+      <div class="movie-details">
+        <h1><%= movie.title %></h1>
+        <p><strong>Description:</strong> <%= movie.description %></p>
+        <p><strong>Genre:</strong> <%= movie.genre %></p>
+        <p><strong>Age:</strong> <%= movie.age %></p>
+        <a class="watch-button" href="/watch?id=<%= movie.id %>">Watch</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

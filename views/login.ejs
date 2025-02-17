@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #ff007a, #00c1ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #00c1ff;
+      margin-bottom: 40px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      background: #ff007a;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 0 20px #ff007a;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #00c1ff;
+      box-shadow: 0 0 20px #00c1ff;
+      transform: scale(1.1);
+    }
+    .auth-links {
+      margin-top: 20px;
+    }
+  </style>
+  
+    <script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    // Firebase Configuratie
+	const firebaseConfig = {
+      apiKey: "AIzaSyCfmhoy-WvYNqQHgJ51fJm6vlNcSHnfFXc",
+      authDomain: "bingebit-auth.firebaseapp.com",
+      projectId: "bingebit-auth",
+      storageBucket: "bingebit-auth.appspot.com",
+      messagingSenderId: "1086907274787",
+      appId: "1:1086907274787:web:2c3face1ec47d26be6c396"
+    };
+
+    // Initialiseer Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Login Formulier Handler
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Firebase inloggen met e-mail en wachtwoord
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Verkrijg het ID-token en stuur het naar de backend
+          userCredential.user.getIdToken()
+            .then((idToken) => {
+              // Stuur het ID-token naar je server
+              fetch('/auth/firebase?token=' + idToken)
+                .then(response => response.json())
+                .then(data => {
+                  if (data.message === 'Authenticated with Firebase!') {
+                    window.location.href = '/'; // Redirect na succesvolle login
+                  } else {
+                    alert('Login failed');
+                  }
+                });
+            });
+        })
+        .catch((error) => {
+          console.error('Error during login: ', error);
+          alert('Login failed: ' + error.message);
+        });
+    });
+  </script>
+  
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Check if the user is on a mobile device
+  if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    alert("This site is not optimized for mobile devices. Some things can break, and some won't even show up on the screen. It's best to use a PC, laptop, or TV for this action at the moment of speaking.");
+  }
+});
+</script>
+
+</head>
+<body>
+  <header>BingeBit - Endless Entertainment</header>
+  <h1>Login with your credentials</h1>
+
+  <!-- Form for username and password (using Firebase Auth) -->
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Discord Login link -->
+  <div class="auth-links">
+    <h2>Or login with:</h2>
+    <a href="/auth/discord">
+      <button>Login with Discord</button>
+    </a>
+  </div>
+</body>
+</html>

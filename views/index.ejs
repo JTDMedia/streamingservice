@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Movies</title>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      padding: 50px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #00c1ff;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .movie-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 193, 255, 0.5);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.05);
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover; /* Zorgt ervoor dat de afbeelding wordt gekropt en niet uitgerekt */
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .movie-card h2 {
+      color: #00c1ff;
+      font-size: 1.8rem;
+      margin: 15px 0;
+    }
+
+    .movie-card p {
+      color: #ccc;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .movie-card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ff007a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 0, 122, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .movie-card a:hover {
+      background: #00c1ff;
+      box-shadow: 0 0 15px rgba(0, 193, 255, 0.5);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body><center>
+  <h1>Welkom, <%= user.displayName %></h1>
+  <div class="movies-grid">
+    <% movies.forEach((movie) => { %>
+      <div class="movie-card">
+        <img src="<%= movie.cover %>" alt="<%= movie.title %>">
+        <h2><%= movie.title %></h2>
+        <p><%= movie.genre %> | <%= movie.age %></p>
+        <a href="/movie/<%= movie.id %>">Details</a>
+      </div>
+    <% }) %>
+  </div>
+</center></body>
+</html>

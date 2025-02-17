@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>Admin Panel</h1>
+
+  <!-- Nieuwe gebruiker aanmaken -->
+  <div>
+    <h2>Nieuwe gebruiker aanmaken</h2>
+    <input type="email" id="new-email" placeholder="Email adres" />
+    <button onclick="createSubscription()">Maak abonnement</button>
+    <p id="create-message"></p>
+  </div>
+
+  <!-- Abonnement beëindigen -->
+  <div>
+    <h2>Abonnement beëindigen</h2>
+    <input type="email" id="end-email" placeholder="Email adres" />
+    <button onclick="endSubscription()">Beëindig abonnement</button>
+    <p id="end-message"></p>
+  </div>
+
+  <script>
+    const API_BASE_URL = "http://node1.hostbasis.nl:1027/api";
+
+    // Functie om een nieuwe gebruiker aan te maken
+    async function createSubscription() {
+      const email = document.getElementById("new-email").value;
+      const messageElement = document.getElementById("create-message");
+
+      if (!email) {
+        messageElement.textContent = "Vul een geldig emailadres in.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/new-subscription`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, "hZ7W6R%o^IkDy0aQ2aUyCWiY.2_3Cpe$VIhWb.*!7qDlN:gBgK" }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          messageElement.textContent = "Succes: " + data.message;
+        } else {
+          messageElement.textContent = "Fout: " + data.error;
+        }
+      } catch (error) {
+        messageElement.textContent = "Er is een fout opgetreden: " + error.message;
+      }
+    }
+
+    // Functie om een abonnement te beëindigen
+    async function endSubscription() {
+      const email = document.getElementById("end-email").value;
+      const messageElement = document.getElementById("end-message");
+
+      if (!email) {
+        messageElement.textContent = "Vul een geldig emailadres in.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/end-subscription`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, "hZ7W6R%o^IkDy0aQ2aUyCWiY.2_3Cpe$VIhWb.*!7qDlN:gBgK" }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          messageElement.textContent = "Succes: " + data.message;
+        } else {
+          messageElement.textContent = "Fout: " + data.error;
+        }
+      } catch (error) {
+        messageElement.textContent = "Er is een fout opgetreden: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+[
+    {
+      "id": "1",
+      "title": "Murder drones",
+      "cover": "https://static.wixstatic.com/media/b48361_dcc13b3f897f45f3b76eefea596d93c6~mv2.png/v1/fill/w_1544,h_990,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/b48361_dcc13b3f897f45f3b76eefea596d93c6~mv2.png",
+      "description": "A series about cute little robots that murder eachother for reasons.",
+      "genre": "Science Fiction",
+      "age": 14
+    },
+    {
+      "id": "2",
+      "title": "Jurassic park",
+      "cover": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTcHXFtCmBOq73akbRR6lFVKje6ky8OB1KRay6qRKvYRWHT09Yz",
+      "description": "On Isla Nublar, a new park has just been built with genetically engineered dinosaurs. Tragedy strikes when one of the workers is killed by a velociraptor.",
+      "genre": "Jurassic",
+      "age": 12
+    }
+  ]
+  

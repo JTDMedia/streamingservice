@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /auth/discord
+Disallow: /auth/discord/callback
+Disallow: /admin

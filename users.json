@@ -1,0 +1,10 @@
+[
+  {
+    "email": "activeuser@example.com",
+    "active": true
+  },
+  {
+    "email": "unactive@email.com",
+    "active": false
+  }
+]
